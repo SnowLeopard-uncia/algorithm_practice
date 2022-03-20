@@ -1,12 +1,11 @@
-package week1;
-
-import javax.xml.soap.Node;
+package BT;
 
 // Definition for a binary tree node. 二叉树类型
 public class TreeNode<T> {
     T val; //结点数据
     TreeNode<T> left; //左子树
     TreeNode<T> right; //右子树
+    TreeNode<T> next;
 
     TreeNode() {}
     TreeNode(T val) { this.val = val; }
