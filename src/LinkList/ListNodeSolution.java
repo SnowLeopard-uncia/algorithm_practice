@@ -1,6 +1,4 @@
-package Link;
-
-import java.util.List;
+package LinkList;
 
 public class ListNodeSolution<T> {
 
@@ -20,6 +18,7 @@ public class ListNodeSolution<T> {
 
 //        mergeTwoLists(linkList1.getNode(0),linkList2.getNode(0));
         printLinkList(mergeTwoLists(linkList1.getNode(0),linkList2.getNode(0)));
+
     }
 
     //打印链表
@@ -57,6 +56,8 @@ public class ListNodeSolution<T> {
         if (p2!=null){
             p.next=p2;
         }
+        //通过debug模式可以看出来dummy和p都是指向一个对象 ListNode@489
+        //发现dummy的next里面的变量是随着p变化的,就是dummy的next和p指向的同一个区域的变量，所以p改变的时候其实dummy在不断增长
         return dummy.next;
     }
 }

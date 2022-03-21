@@ -1,4 +1,4 @@
-package BT;
+package BinaryTree;
 
 // Definition for a binary tree node. 二叉树类型
 public class TreeNode<T> {

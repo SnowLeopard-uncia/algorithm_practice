@@ -1,4 +1,4 @@
-package Link;
+package LinkList;
 
 public class ListNode<T> {
     /**

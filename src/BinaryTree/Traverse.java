@@ -1,4 +1,4 @@
-package BT;
+package BinaryTree;
 
 public class Traverse {
 

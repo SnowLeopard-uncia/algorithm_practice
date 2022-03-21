@@ -1,4 +1,4 @@
-package BT;
+package BinaryTree;
 
 public class Solution {
     //记录最大深度
