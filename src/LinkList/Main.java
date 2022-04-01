@@ -18,11 +18,12 @@ public  class Main {
         // printLinkList(list1);
 
         ListNode[] lists = new ListNode[]{list1,list2,list3};
-         printLinkList(mergeKLists(lists));
+       //  printLinkList(mergeKLists(lists));
         // System.out.println(findFromEnd(list1,2)+"");
 //    System.out.println(removeNthFromEnd(list1,2).val);
 //printLinkList(removeNthFromEnd(list1,3));
 //        System.out.println(middleNode(list1));
+        System.out.println(fib(4));
     }
 
     /**
@@ -135,6 +136,61 @@ public  class Main {
         }
         // 慢指针指向中点
         return slow;
+    }
+
+    //判断链表是否有环 用了快慢指针，快指针一次走两部，慢指针一次走一步，如果相同说明有环
+    public boolean hasCycle(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+
+        while (fast !=null && fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+            if (slow == fast){
+                return true;
+            }
+        }  return false;
+    }
+
+    //求链表的环的入口
+    //快慢指针，两指针必在环中相遇，假设已知慢指针走的步数是k，快指针走的是2k
+    //未知：假设链表头指针距离环入口的结点距离为a（要求的），两指针相遇的地方距离环入口距离为m
+    //k = a+m  2k = a+m+nc (c为圈的长度，n为转的次数),快指针在遇到慢指针前一直在转圈
+    //所以k=nc
+//    因为走到环入口所需要的步数为y= a+nc (从头节点走到环入口，或者在环内转圈到环的入口)
+//    因为k=nc，所以慢指针只要再走a就到环入口了
+    //让快指针从头结点开始，和慢指针相同的速度走a步，只要它们相遇就可以求出a是多少了
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while (fast!=null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+            if (fast == slow){
+                break;
+            }
+        }
+//漏了这种情况，fast 遇到空指针说明没有环
+        if (fast== null || fast.next == null){
+            return null;
+        }
+
+        fast = head;
+        while (fast!=slow){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        return fast;
+
+
+    }
+
+    //斐波那切数列，递归法
+    public static int fib(int n){
+        if (n==0 ) return 0;
+        else if (n==1 ) return 1;
+        else return fib(n-1)+fib(n-2);
+
     }
 
 
