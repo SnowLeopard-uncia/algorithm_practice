@@ -26,10 +26,10 @@ public class Traverse {
             return;
         }
         //前序位置，输出0-9
-//        System.out.println(arr[i]);
+        System.out.println(arr[i]);
         traverse(arr,i+1);
         //后序位置，输出9-0
-        System.out.println(arr[i]);
+//        System.out.println(arr[i]);
     }
 }
 

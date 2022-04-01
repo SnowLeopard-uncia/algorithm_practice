@@ -2,14 +2,14 @@ package BinaryTree;
 
 // Definition for a binary tree node. 二叉树类型
 public class TreeNode<T> {
-    T val; //结点数据
-    TreeNode<T> left; //左子树
-    TreeNode<T> right; //右子树
-    TreeNode<T> next;
+    public T val; //结点数据
+    public TreeNode<T> left; //左子树
+    public TreeNode<T> right; //右子树
+    public TreeNode<T> next;
 
-    TreeNode() {}
+    public TreeNode() {}
     TreeNode(T val) { this.val = val; }
-    TreeNode(T val, TreeNode<T> left, TreeNode<T> right) {
+    public TreeNode(T val, TreeNode<T> left, TreeNode<T> right) {
         this.val = val;
         this.left = left;
         this.right = right;
@@ -50,6 +50,21 @@ public class TreeNode<T> {
         TreeNode<String> two = new TreeNode<String>("2", one, three);
         TreeNode<String> seven = new TreeNode<String>("7", six, nine);
         TreeNode<String> four = new TreeNode<String>("4", two, seven);
+        return four;  // 返回根节点
+    }
+
+    public static TreeNode<Integer> orderBTInit(){
+        // 结构如下：(由下往上建立)
+        //            4
+        //       2         6
+        //    1     3    5     7
+        TreeNode<Integer> one = new TreeNode<Integer>(1, null, null);
+        TreeNode<Integer> three = new TreeNode<Integer>(3, null, null);
+        TreeNode<Integer> five = new TreeNode<Integer>(5, null, null);
+        TreeNode<Integer> seven = new TreeNode<Integer>(7, null, null);
+        TreeNode<Integer> two = new TreeNode<Integer>(2, one, three);
+        TreeNode<Integer> six = new TreeNode<Integer>(6, five, seven);
+        TreeNode<Integer> four = new TreeNode<Integer>(4, two, six);
         return four;  // 返回根节点
     }
 }
