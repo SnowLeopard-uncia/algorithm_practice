@@ -7,7 +7,9 @@ public class Longest {
         System.out.println("Hello, World!");
         //   System.out.println(numWays(46));
         int nums[]={10,9,2,5,3,7,101,18};
-        System.out.println(lengthOfLIS(nums));
+        int num[] = {5,4,-1,7,8};
+  //      System.out.println(lengthOfLIS(nums));
+        System.out.println(maxSubArray(num));
     }
     //3 f(1)+f(2)=2
     //4= f(2)+f(3)= 3
@@ -62,23 +64,21 @@ public class Longest {
         return res;
 
     }
-    //最长子序列，如果输出这个序列要怎么做，我的想法 ？？
-    public static int lengthOfLISArray(int[] nums) {
-        int dp[] = new int[nums.length];
-        //base case 数组全部初始化为1
-        Arrays.fill(dp,1);
-        for(int i=0;i<nums.length;i++){
-            //每个数字开始遍历
-            for(int j=0;j<i;j++){
-                if(nums[i]>nums[j]){
-                    //如果发现了比i小的，子序列加1，否则默认1（子序列初始长度，包含本身）
-                    dp[i] = Math.max(dp[i],1+dp[j]);
-                }
-            }
+    //最长子序列，如果输出这个序列要怎么做
+
+    //力扣53 最长子数组和  给你一个整数数组 nums ，请你找出一个具有最大和的连续子数组（子数组最少包含一个元素），返回其最大和
+    //子数组 是数组中的一个连续部分。
+    public static int maxSubArray(int[] nums) {
+        if (nums.length==0) return 0;
+        int dp[]= new int[nums.length];
+        dp[0]=nums[0]; //第0个没有子数组
+        for (int i = 1; i < dp.length; i++) {
+            //最大子数组 连续，要么是本身，要么是前面的加上本身 （如果前面加上本身更小，那本身就是最大了）
+            dp[i] = Math.max(nums[i],dp[i-1]+nums[i]);
         }
-        int res = 0;
-        for(int i = 0;i<dp.length;i++){
-            res=Math.max(res,dp[i]);
+        int res = Integer.MIN_VALUE;
+        for (int i = 0; i < dp.length; i++) {
+            res = Math.max(res,dp[i]);
         }
         return res;
     }
