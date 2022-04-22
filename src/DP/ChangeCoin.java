@@ -35,7 +35,6 @@ public class ChangeCoin {
         if (memo[n] != -666) {
             return memo[n];
         }
-
         int res = Integer.MAX_VALUE;
 
         for (int coin : coins) {
@@ -44,7 +43,6 @@ public class ChangeCoin {
             //子问题无解跳
             if (subProblem == -1) continue;
             //子问题中找最优解，最后加一（为什么）
-
             res = min(res, 1 + subProblem);
         }
         memo[n] = (res == Integer.MAX_VALUE) ? -1 : res;

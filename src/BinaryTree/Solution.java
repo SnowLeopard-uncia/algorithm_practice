@@ -1,5 +1,9 @@
 package BinaryTree;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Solution {
     //记录最大深度
     static int res = 0;
@@ -22,7 +26,8 @@ public class Solution {
 //        printBT(constructMaximumBinaryTree(arr));
 //        printBT(buildTree(preorder,inorder));
 
-        printBT(buildTreeInPost(inorder,postorder));
+        System.out.println(PrintFromTopToBottom(treeNode).toString());
+//        printBT(buildTreeInPost(inorder,postorder));
     }
 
 
@@ -182,6 +187,31 @@ public class Solution {
         treeNode.right=buildInPost(inorder,index+1,inEnd,postorder,postStart+leftSize,postEnd-1);
         return treeNode;
 
+    }
+
+    //层序遍历
+    public static ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
+        ArrayList<Integer> resultList = new ArrayList<>();
+        if (root == null) {
+            return resultList;
+        }
+        Queue<TreeNode<Integer>> q = new LinkedList<>();
+        q.add(root);
+        while (!q.isEmpty()) {
+            //检索此队列的头部，但不删除，如果此队列为空，则返回null。返回值:此队列的头部,如果这个队列是空的为 null
+            TreeNode<Integer> nowNode = q.peek();
+            //检索并删除该队列的头部，如果该队列为空则返回null。返回值:此队列的头部,或null如果这个队列是空的
+            q.poll();
+            resultList.add(nowNode.val);
+            if (nowNode.left != null) {
+                q.add(nowNode.left);
+            }
+            if (nowNode.right != null) {
+                q.add(nowNode.right);
+            }
+        }
+
+        return resultList;
     }
 
 
