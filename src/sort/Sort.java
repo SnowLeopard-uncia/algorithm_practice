@@ -3,7 +3,11 @@ package sort;
 public class Sort {
     public static void main(String[] args) {
         int[] nums ={49,38,65,97,10,67,13,27};
-        printNums(bubleSort(nums));
+        int[] num = {5,2,3,1,6};
+//        printNums(bubleSort(nums));
+        printNums(quickSort(num,0,num.length-1));
+//        practiceBubble(nums);
+//        printNums(practiceQuick(num,0,num.length-1));
     }
     /**
      * 冒泡排序
@@ -29,10 +33,6 @@ public class Sort {
         return a;
     }
 
-    /**
-     * 快速排序 感觉是
-     *
-     */
 
     /**
      * 打印数组
@@ -44,4 +44,101 @@ public class Sort {
        }
     }
 
+    /**
+     * 快速排序
+     * 1. 选一个轴，通常第一个
+     * 2. 一趟排序后，轴枢左边都比轴小，轴枢右边都比轴大
+     * 3. 递归对左右表重复上述过程
+     * 【很像二叉树前序】
+     */
+    public static int[] quickSort(int[] a, int low,int high){
+        if (low<high){
+            int pivotPos=partition(a,low,high);
+            quickSort(a,low,pivotPos-1);
+            quickSort(a,pivotPos+1,high);
+        }
+        return a;
+    }
+
+    //一趟划分
+    public static int partition(int[] a, int low,int high){
+        int pivot = a[low]; //第一个元素作为轴枢
+        while (low<high){
+            while (low<high && a[high]>=pivot){ //这里是想找比pivot小的坐标
+                --high;
+            }
+            a[low] =a[high]; //比轴枢小的都移到左边
+            while(low<high && a[low]<=pivot){ //这里是想找比pivot大的坐标
+                ++low;
+            }
+            a[high]=a[low];//比轴枢大的移到右边
+        }
+        a[low]=pivot; //轴枢最后存放位置
+        return low; //返回轴枢存放的最终位置
+    }
+
+    /**
+     * 归并排序
+     */
+
+    /**
+     * 冒泡排序 练习版
+     */
+    public static void practiceBubble(int a[]){
+        int flag=1; //用来标记是否发生了交换 冒泡结束的条件是一趟下来再也没有交换
+        int m=a.length-1; //这里要记得
+        while((m>0) && (flag==1)){
+            flag=0;
+            for (int i = 0; i < m; i++) {
+                if (a[i]>a[i+1]){
+                    int temp = a[i];
+                    a[i]=a[i+1];
+                    a[i+1]=temp;
+                    //发生了交换
+                    flag=1;
+                }
+            }
+            m--; //一趟排序完成
+        }
+        for (int j : a) {
+            System.out.println(j);
+        }
+    }
+
+    /**
+     * 快速排序 练习版
+     */
+    public static int[] practiceQuick(int a[],int low,int high){
+//        low = 0;  //不要，不然白递归了好吗
+//        high=a.length-1;
+        if (low<high){  //if不是while
+            int pivot = practicePartition(a,low,high); //每次递归找轴枢，然后一次排序完
+            practiceQuick(a,low,pivot-1); //左子表  //low和high 要注意参数
+            practiceQuick(a,pivot+1,high); //右子表
+        }
+        return a;
+    }
+
+    /**
+     * 快排一趟排序
+     * @param a
+     * @param high
+     * @param low
+     * @return 返回轴枢位置
+     */
+    public static int practicePartition(int[]a,int low,int high){
+        int pivot =a[low]; //轴枢
+        while(low<high){
+            while (low<high && a[high]>=pivot){   //这里搞反了   //low<high && 这个判断很有必要，不然会有数组越界
+                high--;   //这里是想找比pivot小的坐标
+            }
+            a[low] = a[high]; //比轴枢记录小的移到低端
+            while (low<high && a[low]<=pivot){  //这里搞反了
+                low++;  //这里是想找比pivot大的坐标
+            }
+            a[high]=a[low];//比轴枢记录大的移到高端
+        }
+        a[low]=pivot;  //轴枢最后存放位置
+        return low;  //返回轴枢的位置
+    }
 }

@@ -154,11 +154,16 @@ public class Main {
         return false;
     }
 
-    //剑指5 替换空格 请实现一个函数，把字符串 s 中的每个空格替换成"%20"
-    //可以用StringBuilder
-    //return s.replace(/\s/g, '%20')  看见有人用正则
-    //官方是char[] array = new char[length * 3]; 用char存，然后
-    // String newStr = new String(array, 0, size);转换成String
+    /**
+     * 剑指5 替换空格 请实现一个函数，把字符串 s 中的每个空格替换成"%20"
+     * 可以用StringBuilder
+     * return s.replace(/\s/g, '%20')  看见有人用正则
+     *官方是char[] array = new char[length * 3]; 用char存，然后
+     * String newStr = new String(array, 0, size);转换成String
+     * @param s
+     * @return
+     */
+
     public static String replaceSpace(String s) {
         int numOfBlank=0;
         int newLength=0;
