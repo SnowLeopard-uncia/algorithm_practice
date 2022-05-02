@@ -1,13 +1,17 @@
 package sort;
 
+import com.sun.media.sound.RIFFInvalidFormatException;
+
 public class Sort {
     public static void main(String[] args) {
         int[] nums ={49,38,65,97,10,67,13,27};
-        int[] num = {5,2,3,1,6};
+        int[] num = {5,2,7,1,6};
 //        printNums(bubleSort(nums));
-        printNums(quickSort(num,0,num.length-1));
+//        printNums(quickSort(num,0,num.length-1));
 //        practiceBubble(nums);
 //        printNums(practiceQuick(num,0,num.length-1));
+//        printNums(practice2(num,0, num.length-1));
+        printNums(SelectSort(num));
     }
     /**
      * 冒泡排序
@@ -32,7 +36,6 @@ public class Sort {
         }
         return a;
     }
-
 
     /**
      * 打印数组
@@ -140,5 +143,71 @@ public class Sort {
         }
         a[low]=pivot;  //轴枢最后存放位置
         return low;  //返回轴枢的位置
+    }
+
+    /**
+     * 快速排序 练习版2
+     */
+
+    public static int[] practice2(int[] a, int low, int high){
+        if (low<high){
+            int pivot = partition2(a,low,high);
+            partition2(a,low,pivot-1);
+            partition2(a,pivot+1,high);
+        }
+        return a;
+    }
+
+    //一趟快排 返回轴枢下标
+    public static int partition2(int[] a, int low, int high){
+        int pivot = a[low];
+
+        while(low<high){
+            while (low<high && a[high]>=pivot){
+                high--; //主要是找出比pivot小的坐标
+            }
+            a[low] = a[high];
+            while (low<high && a[low]<=pivot){
+                low++;
+            }
+            a[high]=a[low];
+        }
+        a[low] = pivot;
+        return low;
+    }
+
+    /**
+     * 选择排序 直接选择排序
+     */
+    public static int[] SelectSort(int[] a){
+        int min;
+        for (int i = 0; i < a.length; i++) {
+            min=i;
+            for (int j = i+1; j < a.length; j++) {
+                if (a[j]<a[min]) min=j; //更新最小的元素
+            }
+            if (min!=i){
+                int t = a[i];
+                a[i] = a[min];
+                a[min] = t;
+            }
+        }
+        return a;
+    }
+
+    /**
+     * 堆排序
+     */
+
+    //调整堆
+    public void HeapAdjust(int[] a,int s, int m){
+        //a[s+1 ...m]是堆 将a[s...m]调整为以r[s]为根的大根堆
+        int rc = a[s];
+        for (int j=2*s;j<=m; j*=2){  //沿着key比较大的孩子结点往下筛选
+            if (j<m && a[j]<a[j+1]){
+                j++;
+            }
+
+        }
     }
 }

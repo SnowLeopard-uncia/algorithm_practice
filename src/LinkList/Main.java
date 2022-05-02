@@ -2,6 +2,7 @@ package LinkList;
 
 // Created on 纵纹腹小鸮的iPad.
 
+import java.util.List;
 import java.util.PriorityQueue;
 
 /**
@@ -23,7 +24,8 @@ public  class Main {
 //    System.out.println(removeNthFromEnd(list1,2).val);
 //printLinkList(removeNthFromEnd(list1,3));
 //        System.out.println(middleNode(list1));
-        System.out.println(fib(4));
+//        System.out.println(fib(4));
+//        printNode(reverseList(list1));
     }
 
     /**
@@ -193,6 +195,27 @@ public  class Main {
 
     }
 
+    /**
+     * 反转链表 迭代法
+     */
+    public static ListNode reverseList(ListNode head) {
+        ListNode pre = null;
+        ListNode cur = head;
+        while (cur!=null){  //cur不为空！
+            ListNode next = cur.next; //先存着next，不然就丢了，作为下一次循环的主角
+            cur.next=pre; //把next指向前一个
+            pre = cur;  // 把pre指向现在的结点
+            cur = next;  //把cur指向下一个结点
+        }
+        return pre;
+    }
+
+    public static void printNode(ListNode head){
+        while (head!=null){
+            System.out.println(head.val);
+            head=head.next;
+        }
+    }
 
 
 }
