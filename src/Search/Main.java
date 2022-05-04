@@ -10,6 +10,7 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         int arr[]={-1,1,2,3,4,5,6,7,8,9,12,13,14,15,16,17,23,34,45,56};
+        int[] nums = {-1,0,3,5,9,12};
 //        int arr2D[][] = new int[5][5];
         //剑指offer 4.二维数组查找 每一行都按照从左到右递增的顺序排序，每一列都按照从上到下递增的顺序排序。
         int [ ][ ]  arr2D={{1,4,7,11,15},{2,5,8,12,19},{3,6,9,16,22},
@@ -24,7 +25,8 @@ public class Main {
 
 //        System.out.println(findNumberIn2DArray(arr1DNull,3));
 //        System.out.println(replaceSpace("How are you"));
-        System.out.println(reversePrint(listNode3));
+//        System.out.println(reversePrint(listNode3));
+        System.out.println(search(nums,13));
         //测试
         /*
         System.out.println(searchSeq(arr,5));
@@ -221,6 +223,29 @@ public class Main {
 //        }
 
         return a;
+    }
+
+    /**
+     * 二分查找 练习版
+     */
+    //二分查找 三个指针 low mid high ，两边向中间靠拢
+    public static int search(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length-1; //哇这里也有错误，一开始怎么没有减一直接length了！！！ 结果直接数组越界了
+        int mid;
+        int res= -1;
+        while (low<=high){ //结束条件：low>high  这里要有等于号，不然就忽略了一种两个指针相遇的情况
+            mid = (low+high)/2;
+            if (target==nums[mid]){
+                res = mid;
+                break; //笑死，因为没有break一直在这循环呢 或者可以在这直接return
+            }else if(target>nums[mid]){
+                low = mid+1;
+            }else if(target<nums[mid]){
+                high=mid-1;
+            }
+        }
+        return res;
     }
 
 }

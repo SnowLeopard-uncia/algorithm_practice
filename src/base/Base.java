@@ -1,5 +1,7 @@
 package base;
 
+import LinkList.ListNode;
+
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -10,7 +12,26 @@ import java.util.Map;
 public class Base {
 
     public static void main(String[] args) {
-        practiceMap();
+//        practiceMap();
+
+        /**
+         * 在Java执行时会维护一个String池（pool），对于一些可以共享的字符串对象，
+         * 会先在String池中查找是否存在相同的String内容（字符相同），如果有就直接返回，不创建新对象。
+         * 所以c中的值引用的是b的值，自己没有创建对象，比较后结果是true
+         */
+        String a = "a";
+        String b = "b";
+        String c = "b";
+        a=b;
+//        System.out.println(b==c);
+//        System.out.println(a);
+//        System.out.println(b);
+        //但是int不一样，String是引用类型，int是基本数据类型？
+        ListNode d = new ListNode(1,null);
+        ListNode e = new ListNode(1,null);
+        System.out.println(d==e);
+        d=e;
+        System.out.println(d==e); //==比较的是地址
     }
     /**
      * HashMap的使用
@@ -40,15 +61,15 @@ public class Base {
              map.values()) {
             System.out.println(value);
         }
-
-        //使用迭代器（Iterator）遍历 我当时只记得这个
-        //一种用于访问集合的方法，可用于迭代 ArrayList 和 HashSet 等集合迭代器 it 的两个基本操作是 next 、hasNext 和 remove。
-        //
-        //调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。
-        //
-        //调用 it.hasNext() 用于检测集合中是否还有元素。
-        //
-        //调用 it.remove() 将迭代器返回的元素删除。
+        /**
+         *         使用迭代器（Iterator）遍历 我当时只记得这个
+         *         一种用于访问集合的方法，可用于迭代 ArrayList 和 HashSet 等集合迭代器 it 的两个基本操作是 next 、hasNext 和 remove。
+         *         调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。
+         *
+         *         调用 it.hasNext() 用于检测集合中是否还有元素。
+         *
+         *         调用 it.remove() 将迭代器返回的元素删除。
+         */
         Iterator<Map.Entry<Character,Integer>> entryIterator= map.entrySet().iterator();
         while (entryIterator.hasNext()){
             Map.Entry<Character,Integer> entry =entryIterator.next();

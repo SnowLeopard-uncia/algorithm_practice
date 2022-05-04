@@ -2,6 +2,7 @@ package DP;
 
 import java.util.Arrays;
 
+import static java.lang.Math.cos;
 import static java.lang.Math.min;
 
 public class ChangeCoin {
@@ -9,8 +10,11 @@ public class ChangeCoin {
     public static void main(String[] args) {
         int[][] nums ={{2,1,3},{6, 5, 4}, {7, 8, 9}};
 //        System.out.println(minFallingPathSum(nums));
-        System.out.println(longestCommonSubsequence("abcde","ace"));
-        System.out.println(longestCommonSubsequenceMemo("abcde","ace"));
+//        System.out.println(longestCommonSubsequence("abcde","ace"));
+//        System.out.println(longestCommonSubsequenceMemo("abcde","ace"));
+//        System.out.println(climbStairs(6));
+        int[] cost ={10,12,20,30};
+        System.out.println(minCostClimbingStairs(cost));
 
     }
 
@@ -184,6 +188,50 @@ public class ChangeCoin {
         return memo0[i][j];
     }
 
+    /**
+     * 爬楼梯，一次可以爬1级或者2级，有多少种方法可以爬到n级 同理青蛙跳台阶
+     * 思路：动态规划，dp数组的定义是，跳i级，有dp[i]种方法
+     */
+    public static int climbStairs(int n){
+        if (n<=1){
+            return n;
+        }  //这个是用来防止数组越界的，当n=1 的时候，数组长度2，dp[2]就越界了
+        int[] dp = new int[n+1];
+        dp[1]=1; //跳一级一种方法
+        dp[2]=2; //跳2级2种方法，1+1，2
+        for (int i = 3; i <=n ; i++) { //注意等于
+            dp[i]=dp[i-1]+dp[i-2];  //跳三级的方法相当于前两级的方法相加（？） 因为跳n级，肯定先有跳n-1级或者n-2级，所以把n-1级和n-2级的跳法加起来
+            // 因为前n-1 和 前 n-2阶梯的次数 再跳一级，就可以到达n了，所以跳法，其实就是前面的跳法相加嘛。画个树图就知道了
+        }
+        return dp[n];
+    }
 
+    /**
+     * 使用最小花费爬楼梯
+     * 给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。一旦你支付此费用，即可选择向上爬一个或者两个台阶。
+     * 你可以选择从下标为 0 或下标为 1 的台阶开始爬楼梯。
+     * 请你计算并返回达到楼梯顶部的最低花费。
+     * 链接：https://leetcode-cn.com/problems/min-cost-climbing-stairs
+     * 思路：最后一步可以理解为 不用花费。dp[i]定义为：达到第i个台阶，花费最少体力为dp[i]
+     * 因为是选最小的，所以min(dp[i-1],dp[i-2])+cos[i]
+     * 初始化：dp[0] = cost[0], dp[1] = cost[1]
+     */
+    public static int minCostClimbingStairs(int[] cost) {
+        if (cost==null ||cost.length == 0 ){
+            return 0;  //如果没有东西，空数组要注意，因为||是先从前往后开始运算的，如果cost为空，cost.length会报错空指针异常
+        }
+        if (cost.length==1){
+            return cost[0]; //等于1就不会有cost[1] 了，dp注意数组边界！
+        }
+        int[] dp = new int[cost.length];
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for (int i =2;i<cost.length;i++){
+            dp[i] = Math.min(dp[i-1],dp[i-2])+cost[i];
+        }
+        //最后一步，如果是由倒数第二步爬，则最后一步的体力花费可以不用算
+//        return dp[cost.length-1]; 这里就不是返回最后一步了，为什么，因为1和2都可能行，所以不能只返回一个。
+        return Math.min(dp[cost.length-1],dp[cost.length-2]);
+    }
 
 }

@@ -59,7 +59,10 @@ public class Solution {
         }
     }
 
-    //二叉树翻转 把二叉树上的每一个节点的左右子节点进行交换
+    /**
+     * 二叉树翻转 把二叉树上的每一个节点的左右子节点进行交换
+     * @param root
+     */
     public static void transBT(TreeNode root){
         if (root == null) return;
 
@@ -73,7 +76,10 @@ public class Solution {
         System.out.println(root.val);
     }
 
-    //先序遍历输出二叉树
+    /**
+     * 先序遍历输出二叉树
+     * @param root
+     */
     public static void printBT(TreeNode root){
         if (root == null){
             System.out.println("null");
@@ -85,13 +91,16 @@ public class Solution {
         }
     }
 
-//链接二叉树的同一层的结点
+    /**
+     * 链接二叉树的同一层的结点
+     * @param root
+     * @return
+     */
     public static TreeNode connect(TreeNode root) {
         if(root == null) return null;
         connectTwoNode(root.left,root.right);
         return root;
     }
-
     public static void connectTwoNode(TreeNode root1, TreeNode root2){
         if(root1 == null || root2 == null) return ;
         root1.next=root2;
@@ -100,7 +109,11 @@ public class Solution {
         connectTwoNode(root1.right,root2.left);
     }
 
-    //利用数组的最大值作为根节点递归构造二叉树
+    /**
+     * 利用数组的最大值作为根节点递归构造二叉树
+     * @param nums
+     * @return
+     */
     public static TreeNode constructMaximumBinaryTree(int[] nums) {
 //        if (nums.length==0) return null;
         //头指针和尾指针
@@ -131,13 +144,28 @@ public class Solution {
         return node;
     }
 
-    //105题 中序遍历和前序遍历构造二叉树  总体递归思路是对的，有点小细节
+    /**
+     * 105题 中序遍历和前序遍历构造二叉树  总体递归思路是对的，有点小细节
+     * @param preorder
+     * @param inorder
+     * @return
+     */
     public static TreeNode buildTree(int[] preorder, int[] inorder) {
         return build(preorder,0,preorder.length-1,
                 inorder,0,inorder.length-1);
     }
 
-    //返回二叉树根节点
+    /**
+     * 返回二叉树根节点
+     * @param preorder
+     * @param preStart
+     * @param preEnd
+     * @param inorder
+     * @param inStart
+     * @param inEnd
+     * @return
+     */
+
     public static TreeNode build(int[] preorder, int preStart, int preEnd,
                                  int[] inorder, int inStart, int inEnd){
         //遍历边界
@@ -162,7 +190,12 @@ public class Solution {
 
     }
 
-    //106题目中序遍历和后序遍历确定二叉树
+    /**
+     * 106题目中序遍历和后序遍历确定二叉树
+     * @param inorder
+     * @param postorder
+     * @return
+     */
     public static TreeNode buildTreeInPost(int[] inorder, int[] postorder) {
         return buildInPost(inorder,0,inorder.length-1,
                 postorder,0, postorder.length-1);
@@ -189,7 +222,11 @@ public class Solution {
 
     }
 
-    //层序遍历
+    /**
+     * 层序遍历
+     * @param root
+     * @return
+     */
     public static ArrayList<Integer> PrintFromTopToBottom(TreeNode root) {
         ArrayList<Integer> resultList = new ArrayList<>();
         if (root == null) {
