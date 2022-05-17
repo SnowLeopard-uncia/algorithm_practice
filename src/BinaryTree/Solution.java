@@ -1,7 +1,11 @@
 package BinaryTree;
 
+import sun.reflect.generics.tree.Tree;
+
+import javax.management.QueryEval;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 public class Solution {
@@ -26,10 +30,56 @@ public class Solution {
 //        printBT(constructMaximumBinaryTree(arr));
 //        printBT(buildTree(preorder,inorder));
 
-        System.out.println(PrintFromTopToBottom(treeNode).toString());
+//        System.out.println(PrintFromTopToBottom(treeNode).toString());
 //        printBT(buildTreeInPost(inorder,postorder));
     }
 
+    /**
+     * 先序遍历
+     * @param root
+     * @return
+     */
+    public static void traverse0(TreeNode root){
+        if (root==null){
+            return;
+        }
+        System.out.println(root.val);
+        traverse0(root.left);
+        traverse0(root.right);
+    }
+
+   static List<Integer> list1 = new LinkedList<>();
+    /**
+     * 中序遍历
+     * @param root
+     * @return
+     */
+    public static void traverse1(TreeNode root){
+        if (root==null){
+            return;
+        }
+        traverse1(root.left);
+        System.out.println(root.val);
+        list1.add((Integer) root.val);
+        traverse1(root.right);
+    }
+
+
+    static List<Integer> list2 = new LinkedList<>();
+    /**
+     * 后序遍历
+     * @param root
+     * @return
+     */
+    public static void traverse2(TreeNode root){
+        if (root==null){
+            return;
+        }
+        traverse2(root.left);
+        traverse2(root.right);
+        System.out.println(root.val);
+        list2.add((Integer) root.val);
+    }
 
 
   //二叉树最大深度
@@ -251,5 +301,38 @@ public class Solution {
         return resultList;
     }
 
+    /**
+     * 102 层序遍历
+     * 给你二叉树的根节点 root ，返回其节点值的 层序遍历 。 （即逐层地，从左到右访问所有节点）。
+     */
+
+    List<List<Integer>> resultList = new LinkedList<List<Integer>>();
+
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        checkFun(root);
+        return resultList;
+
+    }
+
+    private void checkFun(TreeNode root) {
+        if (root == null){
+            return;
+        }
+        Queue<TreeNode> que = new LinkedList<TreeNode>();
+        que.offer(root); //把结点插入队列 第一个结点
+
+        while (!que.isEmpty()){ //如果队列不空为结束条件，因为如果一直有子节点的话就会一直加入队列，所以队列为空就是没有结点了
+            List<Integer> itemList = new ArrayList<Integer>(); //用来记录结果集合
+            int len = que.size(); //队列长度，这里就是看有多少个要被取左右结点的
+            while (len>0){
+                TreeNode temp = que.poll(); //把第一个拿出来
+                itemList.add((Integer) temp.val);  //结果集合加进去
+                if (temp.left!=null) que.offer(temp.left); //如果左边不为空，加进队列，其实这里把左右结点都加进了队列
+                if (temp.right !=null) que.offer(temp.right);
+                len--; //取完
+            }
+            resultList.add(itemList);
+        }
+    }
 
 }

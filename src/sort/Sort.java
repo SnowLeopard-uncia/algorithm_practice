@@ -11,7 +11,8 @@ public class Sort {
 //        practiceBubble(nums);
 //        printNums(practiceQuick(num,0,num.length-1));
 //        printNums(practice2(num,0, num.length-1));
-        printNums(SelectSort(num));
+//        printNums(SelectSort(num));
+        printNums(smallestK(num,3));
     }
     /**
      * 冒泡排序
@@ -209,5 +210,49 @@ public class Sort {
             }
 
         }
+    }
+
+    /**
+     * 快排练习版3
+     * @param arr
+     * @param k
+     * @return
+     */
+    public static int[] smallestK(int[] arr, int k) {
+        int[] a =  quickSort(0,arr.length-1,arr);
+        int[] b = new int[k];
+        System.arraycopy(a, 0, b, 0, k);
+        //我用的下面的那个，然后IDE让我用arraycopy
+//        for(int i=0;i<k;i++){
+//            b[i]=a[i];
+//        }
+        return b;
+    }
+
+    /**
+     快排 */
+    public static int[] quickSort(int low,int high,int a[]){
+        if(low<high){
+            int pivot = patition(low,high,a);
+            quickSort(low,pivot-1,a);
+            quickSort(pivot+1,high,a);
+        }
+        return a;
+    }
+
+    /**快排一趟 找出轴枢坐标
+     */
+    public static int patition(int low,int high,int[] a){
+        int pivot = a[low];
+        while(low<high){
+            while(low<high && a[high]>=pivot) high--; //high-- 这里有问题，
+            // 还有各种等号也有问题
+            a[low] = a[high];
+            while(low<high && a[low]<=pivot) low++;
+            a[high] = a[low];
+
+        }
+        a[low]=pivot;
+        return low;
     }
 }
