@@ -85,10 +85,52 @@ public class ListNodeSolution<T> {
             }else {  //要加上else，为什么呢 因为不用移动下一位
                 cur=cur.next;
             }
-
         }
         head=dummy.next;
         return head;
 
+    }
+
+    /**
+     * 普通版本
+     * @param head
+     * @param val
+     * @return
+     */
+
+    public ListNode<Integer> removeElements0(ListNode<Integer> head, int val) {
+        ListNode<Integer> cur = head;
+        while(head!=null && val==head.val){  //如果可能会操作很多遍的是用while不要if,例如全都是1
+            head=head.next;
+        }
+        while(cur!=null && cur.next!=null){
+            if(cur.next.val==val){
+                cur.next=cur.next.next;
+            }else{
+                cur=cur.next;
+            }
+        }
+        return head;
+    }
+
+    /**
+     * 练习版 虚拟头结点
+     * @param head
+     * @param val
+     * @return
+     */
+    public ListNode<Integer> removeElements1(ListNode<Integer> head, int val) {
+        ListNode<Integer> dummy = new ListNode<Integer>();
+        dummy.next=head;
+        ListNode<Integer> cur = dummy;
+
+        while(cur!=null && cur.next!=null){
+            if(cur.next.val==val){
+                cur.next=cur.next.next;
+            }else{
+                cur=cur.next;
+            }
+        }
+        return dummy.next;
     }
 }

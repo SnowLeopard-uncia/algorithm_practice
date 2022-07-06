@@ -26,6 +26,7 @@ public  class Main {
 //        System.out.println(middleNode(list1));
 //        System.out.println(fib(4));
 //        printNode(reverseList(list1));
+        printNode(swapPairs(list1));
     }
 
     /**
@@ -125,6 +126,30 @@ public  class Main {
 
     }
 
+    /**
+     * 练习版
+     双指针 */
+    public ListNode removeNthFromEnd0(ListNode head, int n) {
+        if(head==null){
+            return null;
+        }
+        ListNode dummy = new ListNode();
+        ListNode fast = dummy;
+        ListNode slow = dummy;
+        dummy.next = head;
+//        先让fast先走k+1【之所以要+1是因为让slow走到被删除结点的上一个，好删除】步
+        for(int i =0;i<n+1;i++){
+            fast = fast.next;
+        }
+//        让fast和slow同时移动，直到fast指向链表末尾，删除slow指向的结点
+        while(fast!=null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+        slow.next= slow.next.next;
+        return dummy.next;
+    }
+
 
     public static ListNode middleNode(ListNode head){
         //快慢指针，慢指针一步x，快指针两步2x，当快指针走到最后 2x=n,所以n/2 = x,此时的慢指针为x
@@ -222,6 +247,44 @@ public  class Main {
         return pre;
     }
 
+    /**
+     * 练习版
+     * @param head
+     * @return
+     */
+
+    public ListNode reverseListp(ListNode head) {
+        ListNode cur = head;
+        ListNode pre = null;
+        ListNode temp = null;
+
+        while(cur!=null){
+            temp=cur.next;
+            cur.next=pre;
+            pre = cur;
+            cur=temp;
+        }
+
+        return pre; //因为到最后cur到null了，pre刚好是最后一个
+    }
+
+    /**
+     递归版 */
+
+    public ListNode reverseList0(ListNode head) {
+        return reverse(null,head);
+    }
+
+    public ListNode reverse(ListNode pre,ListNode cur){ //这里的参数大概是循环每次更新的参数
+        if(cur==null){ //这里是循环的终止条件
+            return pre;
+        }
+        ListNode temp = null;
+        temp = cur.next;
+        cur.next=pre;
+        return reverse(cur,temp); //更新的参数，参照非递归的做法
+    }
+
     public static void printNode(ListNode head){
         while (head!=null){
             System.out.println(head.val);
@@ -229,6 +292,86 @@ public  class Main {
         }
     }
 
+    /**
+     * 24. 两两交换链表中的结点
+     * 给你一个链表，两两交换其中相邻的节点，并返回交换后链表的头节点。
+     * 你必须在不修改节点内部的值的情况下完成本题（即，只能进行节点交换）。
+     * @param head
+     * @return
+     */
+    public static ListNode swapPairs(ListNode head) {
+        if(head==null){
+            return null;
+        }
+        ListNode dummy = new ListNode();
+        dummy.next = head;
+        ListNode cur = dummy;
+        ListNode temp1 = null; //给第一个结点当临时结点
+        ListNode temp2 = null; //给第二个结点当临时结点
 
+        while(cur.next!=null && cur.next.next!=null){
+            temp1 = cur.next;
+//            cur.next = cur.next.next; //指向了第二个 顺序会影响！！！，一开始我这个写在这里，因为cur的next变了，
+//            所以后面的cur已经不是原来的cur了，这个要注意！！！
+            temp2= cur.next.next.next;
+            cur.next = cur.next.next;
+            cur.next.next = temp1;
+            temp1.next = temp2;
+//移动了两位
+            cur = temp1;
+        }
+        return dummy.next;
+
+    }
+
+    /**
+     * 链表相交
+     * 给你两个单链表的头节点 headA 和 headB ，请你找出并返回两个单链表相交的起始节点。如果两个链表没有交点，返回 null 。
+     * https://leetcode.cn/problems/intersection-of-two-linked-lists-lcci/
+     */
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        ListNode curA = headA;
+        ListNode curB = headB;
+
+        int la=0;
+        int lb=0;
+        //遍历A
+        while(curA!=null){
+            curA = curA.next;
+            la++;
+        }
+        //遍历B
+        while(curB!=null){
+            curB=curB.next;
+            lb++;
+        }
+        if(lb>la){  //这样比较好处理，默认一个最长，后面统一
+            int temp=0;
+            temp=la;
+            la=lb;
+            lb=temp;
+
+            ListNode tempNode = headA;
+            headA=headB;
+            headB=tempNode;
+        }
+
+        int gap = la-lb;
+
+        while(gap-- >0){
+            headA=headA.next;
+        }
+
+        while(headA!=null){
+            if(headA==headB){
+                return headA;
+            }
+            headA=headA.next;
+            headB=headB.next;
+        }
+        return null;
+    }
 }
+
+
 

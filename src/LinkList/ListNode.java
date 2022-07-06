@@ -5,7 +5,7 @@ public class ListNode<T> {
      * 设置结点结构
      */
      public T val;
-     public ListNode next;
+     public ListNode<T> next;
 
     public T getVal() {
         return val;
@@ -15,15 +15,15 @@ public class ListNode<T> {
         this.val = val;
     }
 
-    public ListNode getNext() {
+    public ListNode<T> getNext() {
         return next;
     }
 
-    public void setNext(ListNode next) {
+    public void setNext(ListNode<T> next) {
         this.next = next;
     }
 
    public ListNode() {}
    public ListNode(T val) { this.val = val; }
-   public ListNode(T val, ListNode next) { this.val = val; this.next = next; }
+   public ListNode(T val, ListNode<T> next) { this.val = val; this.next = next; }
 }
